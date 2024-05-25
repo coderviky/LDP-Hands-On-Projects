@@ -1,14 +1,23 @@
 import Fastify from 'fastify'
+import { pino } from 'pino'
+import { db } from './db/db'
+import { userRoutes } from './modules/user/user.routes'
 
+// create logger with pino
+const logger = pino({
+    level: 'info',
+    transport: {
+        target: 'pino-pretty',
+    }
+})
 
 // create fastify server with logger enabled with pino
 const app = Fastify({
-    logger: true
+    logger
 })
 
 
-
-// define a route 
+// define a home route 
 app.get('/', (request, reply) => {
     reply.send("Hello World")
 })
@@ -20,6 +29,8 @@ app.listen({ port: 3000 }, (error, address) => {
         app.log.error(error);
         process.exit(1);
     }
+});
 
-    console.log(`Server listening at ${address}`)
-})
+
+// register user routes
+app.register(userRoutes, { prefix: "api/user" });

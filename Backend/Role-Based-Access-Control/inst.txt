@@ -1,4 +1,4 @@
-npm install fastify zod
+npm install fastify zod 
 
 
 dev dep :
