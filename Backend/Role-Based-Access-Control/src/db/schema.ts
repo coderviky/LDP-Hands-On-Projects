@@ -16,6 +16,7 @@ export const userTable = pgTable("users", {
     id: serial("userId").primaryKey(),
     name: varchar("name", { length: 256 }).notNull(),
     email: varchar("email", { length: 256 }).notNull(),
+    password: varchar("password", { length: 256 }).notNull(),
     applicationId: integer("applicationId").references(() => applicationTable.id),
     createdAt: timestamp("createdAt").defaultNow().notNull(),
     updatedAt: timestamp("updatedAt").defaultNow().notNull().$onUpdate(() => new Date())

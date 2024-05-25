@@ -14,13 +14,17 @@ export const ALL_PERMISSIONS = [
 ];
 
 // convert permissions to object
-export const PERMISSION = ALL_PERMISSIONS.reduce(
+export const PERMISSIONS = ALL_PERMISSIONS.reduce(
     (acc, permission) => {
         acc[permission] = permission // {permission : permission}
         return acc;
     },
     {} as Record<(typeof ALL_PERMISSIONS)[number], (typeof ALL_PERMISSIONS)[number]>);
 
+export const USER_ROLE_PERMISSIONS = [
+    PERMISSIONS["post:write"],
+    PERMISSIONS["post:read"],
+];
 
 export const SYSTEM_ROLES = {
     SUPER_ADMIN: "SUPER_ADMIN",

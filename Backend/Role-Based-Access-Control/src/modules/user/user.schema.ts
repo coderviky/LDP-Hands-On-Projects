@@ -8,7 +8,10 @@ import { zodToJsonSchema } from 'zod-to-json-schema'
 const createUserBodySchema = z.object(
     {
         name: z.string(),
-        email: z.string().email()
+        email: z.string().email(),
+        password: z.string().min(6),
+        applicationId: z.number(),
+        initialuser: z.boolean().optional()
     }
 );
 
