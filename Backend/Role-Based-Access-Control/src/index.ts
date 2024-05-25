@@ -2,6 +2,7 @@ import Fastify from 'fastify'
 import { pino } from 'pino'
 import { db } from './db/db'
 import { userRoutes } from './modules/user/user.routes'
+import { applicationRoute } from './modules/application/application.routes'
 
 // create logger with pino
 const logger = pino({
@@ -34,3 +35,5 @@ app.listen({ port: 3000 }, (error, address) => {
 
 // register user routes
 app.register(userRoutes, { prefix: "api/user" });
+// register application routes
+app.register(applicationRoute, { prefix: "api/application" });

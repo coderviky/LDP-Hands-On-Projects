@@ -1,5 +1,4 @@
 // User Routes Schemas
-
 import { z } from 'zod'
 import { zodToJsonSchema } from 'zod-to-json-schema'
 

@@ -1,5 +1,4 @@
 // User Routes Logic Part
-
 import { FastifyRequest, FastifyReply } from "fastify";
 import { CreateUserBody } from "./user.schema";
 import { createUserInDB } from "./user.services";
