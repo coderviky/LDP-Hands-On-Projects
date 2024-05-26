@@ -1,5 +1,0 @@
-npm install fastify zod 
-
-
-dev dep :
-npm install -D typescript @types/node  tsx

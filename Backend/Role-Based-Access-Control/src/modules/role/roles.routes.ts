@@ -1,6 +1,6 @@
 // ROLES routes
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { PERMISSIONS, USER_ROLE_WRITE } from '../../config/permissions';
+import { PERMISSIONS, ROLE_WRITE } from '../../config/permissions';
 import { createRoleJsonSchema } from './roles.schema';
 import { createRoleHandler } from './roles.controller';
 
@@ -14,7 +14,7 @@ export async function roleRoutes(app: FastifyInstance) {
     // create a role
     app.post('/', {
         schema: createRoleJsonSchema,
-        preHandler: [app.guard.scope([PERMISSIONS[USER_ROLE_WRITE]])]
+        preHandler: [app.guard.scope([PERMISSIONS[ROLE_WRITE]])]
     },
         createRoleHandler
     );

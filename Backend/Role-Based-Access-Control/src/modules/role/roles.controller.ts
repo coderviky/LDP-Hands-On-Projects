@@ -1,15 +1,22 @@
 // ROLE routes logic part
 
-import { FastifyRequest, FastifyReply } from "fastify";
+import { FastifyRequest, FastifyReply, RouteGenericInterface } from "fastify";
 import { CreateRoleBody } from "./roles.schema";
 import { createRoleInDB } from "./roles.services";
 
 
+
+// create interface for role handler like - interface AssignRoleToUserRouteInterface extends RouteGenericInterface {
+// Body: AssignRoleToUserBody;
+// }
+interface CreateRoleRouteInterface extends RouteGenericInterface {
+    Body: CreateRoleBody;
+}
+
+
 // create role handler
 export async function createRoleHandler(
-    request: FastifyRequest<{
-        Body: CreateRoleBody
-    }>,
+    request: FastifyRequest<CreateRoleRouteInterface>,
     reply: FastifyReply
 ) {
     // get user from request & applicationId from user

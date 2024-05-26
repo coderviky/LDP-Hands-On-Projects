@@ -1,6 +1,6 @@
 // User Routes Logic Part
-import { FastifyRequest, FastifyReply } from "fastify";
-import { CreateUserBody, LoginUserBody } from "./user.schema";
+import { FastifyRequest, FastifyReply, RouteGenericInterface } from "fastify";
+import { AssignRoleToUserBody, CreateUserBody, LoginUserBody } from "./user.schema";
 import { assignRoleToUser, createUserInDB, findUserByEmailAndPassword, getUsersByApplication } from "./user.services";
 import { SYSTEM_ROLES } from "../../config/permissions";
 import { getRoleByAppAndRoleName } from "../role/roles.services";
@@ -113,6 +113,37 @@ export async function loginUserHandler(
 
     reply.code(200).send({
         token
+    });
+
+}
+
+
+interface AssignRoleToUserRouteInterface extends RouteGenericInterface {
+    Body: AssignRoleToUserBody;
+}
+
+// assign role to user handler
+export async function assignRoleToUserHandler(
+    request: FastifyRequest<AssignRoleToUserRouteInterface>,
+    reply: FastifyReply
+) {
+    // get user from request & applicationId from user
+    const user = request.user;
+    const applicationId = user.applicationId;
+
+    // get data from the request
+    const data = request.body;
+
+    // add user with role and application in user_role table
+    await assignRoleToUser({
+        applicationId,
+        roleId: data.roleId,
+        userId: data.userId
+    });
+
+    // send the response
+    reply.code(201).send({
+        message: `Role ${data.roleId} assigned to user ${data.userId} successfully`
     });
 
 }

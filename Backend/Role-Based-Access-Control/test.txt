@@ -1,0 +1,57 @@
+
+App Name - Blog-post    <= create
+    Roles 
+    1. Super Admin
+    2. App User  // post read
+    3. Blogger  // post write read edit own   <= create by super admin
+
+             Users
+   create => 1. admin@abc.com  // Super Admin
+   create => 2. viky@abc.com  // Blogger   <= assign by super admin
+
+
+
+
+Requests
+1. Create a new Application
+{
+    "name": "Blog-post"
+}
+
+2. Create Super Admin
+{
+    "email": "admin@abc.com",
+    "name": "Admin",
+    "password": "123456",
+    "applicationId" : {{application_ID}},
+    "initialuser": true
+}
+3. Create User
+{
+    "email": "viky@abc.com",
+    "name": "Viky",
+    "password": "123456",
+    "applicationId" : {{application_ID}}
+}
+
+(). Login User
+{
+    "email": "admin@abc.com",
+    "password": "123456",
+    "applicationId" : {{application_ID}}
+}
+
+
+4. Create Role  -  by giving token of super admin
+H :  "Authorization": "Bearer {{token}}"
+{
+    "name": "Blogger",
+    "permissions" : ["post:write", "post:read", "post:edit-own"]
+}
+
+5. Assign Role to User - by giving token of super admin
+H :  "Authorization": "Bearer {{token}}"
+{
+    "userId": {{user_ID}},
+    "roleId": {{role_ID}}
+}

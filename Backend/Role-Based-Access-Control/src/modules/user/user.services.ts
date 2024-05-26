@@ -91,7 +91,19 @@ export async function findUserByEmailAndPassword(email: string, password: string
 
     // check password in controller
 
-    // get permissions of the user
+    // get permissions of the user from all rows - so all roles permissions can cover for authorization
+    // const permissions: string[] = [];
+    // result.forEach((row) => {
+    //     if (row.permissions) {
+    //         permissions.push(...row.permissions);
+    //     }
+    // });
+
+    // send user with all permissions
+    // return {
+    //     ...result[0],
+    //     permissions
+    // };
 
     // return the user
     return result[0];

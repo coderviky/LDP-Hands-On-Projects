@@ -43,8 +43,8 @@ export const PERMISSIONS = ALL_PERMISSIONS.reduce(
     {} as Record<(typeof ALL_PERMISSIONS)[number], (typeof ALL_PERMISSIONS)[number]>);
 
 export const USER_ROLE_PERMISSIONS = [
-    PERMISSIONS["post:write"],
-    PERMISSIONS["post:read"],
+    // PERMISSIONS[POST_WRITE],
+    PERMISSIONS[POST_READ],   // any user created other than super admin will get only read permission
 ];
 
 export const SYSTEM_ROLES = {
