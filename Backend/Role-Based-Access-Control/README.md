@@ -51,7 +51,7 @@ Following techstack required to run this project:
 1. Create a `.env` file in the root of the project and add the following environment variables:
 
     ```sh
-    DATABASE_URL=postgres://<username>:<password>@<host>:<port>/<database>
+    DATABASE_CONNECTION=postgresql://<username>:<password>@<host>:<port>/<database>
     JWT_SECRET=secret12345
     ```
 
@@ -61,19 +61,19 @@ Following techstack required to run this project:
 
 ## Usage
 
-1.  Generate Migrations:
+1.  To Generate Migrations:
 
         ```sh
         npm run migration:generate
         ```
 
-2.  Apply Migrations:
+2.  To Apply Migrations (schema update in database):
 
         ```sh
         npm run migration:apply
         ```
 
-3.  Start development server using following command:
+3.  To Start development server using following command:
 
     ```sh
     npm run dev

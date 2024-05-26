@@ -10,5 +10,5 @@ This repository is designed to contain several projects, each located in its res
 
         Role-Based Access Control (RBAC) system implemented using Fastify with Drizzle ORM for PostgreSQL. This project also includes scripts for generating and applying database migrations using Drizzle-Kit.
 
--   [Frontend/](./Frontend)
+-   Frontend/
     -   (upcoming projects)
