@@ -60,4 +60,17 @@ export const userToRoleTable = pgTable("user_to_role", {
 
 
 // post table using drizzle orm
-
+export const postTable = pgTable("post", {
+    id: serial("postId").primaryKey(),
+    title: varchar("title", { length: 256 }).notNull(),
+    content: text("content").notNull(),
+    userId: integer("userId").references(() => userTable.id),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().notNull().$onUpdate(() => new Date())
+},
+    (postTable) => {
+        return {
+            titleUserIdUnique: uniqueIndex("post_title_userId_unique").on(postTable.title, postTable.userId) // Unique index on title and userId
+        }
+    }
+);

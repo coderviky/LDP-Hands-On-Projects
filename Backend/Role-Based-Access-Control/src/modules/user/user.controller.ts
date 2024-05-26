@@ -101,6 +101,8 @@ export async function loginUserHandler(
     // send the user data in response
     // reply.code(200).send(user);
 
+    // console.log("permissions", user.permissions)
+
     // send jwt token in response
     // this jwt token will be used to authenticate user in further requests
     // by decoding the token in the request header by middleware/hook for "onRequest" event

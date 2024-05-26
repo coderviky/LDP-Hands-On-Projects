@@ -1,3 +1,5 @@
+## TEST in Thunder Client
+
 
 App Name - Blog-post    <= create
     Roles 
@@ -54,4 +56,24 @@ H :  "Authorization": "Bearer {{token}}"
 {
     "userId": {{user_ID}},
     "roleId": {{role_ID}}
+}
+
+
+
+
+## POSTS
+6. Create Post - by giving token of Blogger user - Viky
+Login - blogger user
+{
+    "email": "viky@abc.com",
+    "password": "123456",
+    "applicationId" : {{application_ID}} 
+}
+
+
+H - "Authorization" : "Bearer {{blogger_token}}"
+{
+    "title": "Post 1",
+    "content": "This is my first Blog post",
+    "userId": {{user_ID}}
 }

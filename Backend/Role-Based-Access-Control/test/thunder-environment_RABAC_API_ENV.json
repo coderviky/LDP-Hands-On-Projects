@@ -1,0 +1,30 @@
+{
+    "clientName": "Thunder Client",
+    "environmentName": "RABAC_API_ENV",
+    "environmentId": "643570fc-5995-4e1d-ac7a-dc4501456c45",
+    "dateExported": "2024-05-26T11:25:51.205Z",
+    "version": "1.2",
+    "variables": [
+        {
+            "name": "application_ID",
+            "value": "7"
+        },
+        {
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhZG1pbkBhYmMuY29tIiwiYXBwbGljYXRpb25JZCI6Nywic2NvcGVzIjpbInVzZXI6cm9sZTp3cml0ZSIsInVzZXI6cm9sZTpyZWFkIiwicm9sZTp3cml0ZSIsInBvc3Q6d3JpdGUiLCJwb3N0OnJlYWQiLCJwb3N0OmRlbGV0ZSIsInBvc3Q6ZWRpdC1vd24iXSwiaWF0IjoxNzE2NzIwMzY5fQ.6x6HBheLCHYTyXnQwxrTlLkG2MhAdBkG8xc2FbtoiM4"
+        },
+        {
+            "name": "user_ID",
+            "value": "7"
+        },
+        {
+            "name": "role_ID",
+            "value": "10"
+        },
+        {
+            "name": "blogger_token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJ2aWt5QGFiYy5jb20iLCJhcHBsaWNhdGlvbklkIjo3LCJzY29wZXMiOlsicG9zdDpyZWFkIiwicG9zdDp3cml0ZSIsInBvc3Q6cmVhZCIsInBvc3Q6ZWRpdC1vd24iXSwiaWF0IjoxNzE2NzIyNjYxfQ.9yQc-WvpwkDepo-y7n5LoEXZVHAUxxb_PL7k1RcBOnw"
+        }
+    ],
+    "ref": "AwxeghsF6uiDBNGYOtFX93Wt40dZFZ4PsI95HMVy1yrRtWmXyHkzSDRcVPtcBOvc"
+}

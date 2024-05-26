@@ -1,11 +1,11 @@
 {
     "name": "role-based-access-control",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "src/index.js",
     "scripts": {
         "dev": "tsx watch src/index.ts",
-        "generate": "drizzle-kit generate",
-        "migrate": "drizzle-kit migrate",
+        "migration:generate": "drizzle-kit generate",
+        "migration:apply": "drizzle-kit migrate",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",

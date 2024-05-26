@@ -3,7 +3,6 @@ import { InferInsertModel, eq, and } from "drizzle-orm";
 import { db } from "../../db/db";
 import { userTable, userToRoleTable, roleTable } from "../../db/schema";
 import argon2 from "argon2";
-import { permission } from "process";
 
 // create a new user in db table "user"
 // type NewUser = typeof usersTable.$inferSelect;
@@ -54,7 +53,7 @@ export async function assignRoleToUser(data: InferInsertModel<typeof userToRoleT
 
 
 
-// find user with email and password
+// find user with email and password - login user handler
 export async function findUserByEmailAndPassword(email: string, password: string, applicationId: number) {
     // find user with email and applicationId with roles permissions using left join
 
@@ -92,19 +91,22 @@ export async function findUserByEmailAndPassword(email: string, password: string
     // check password in controller
 
     // get permissions of the user from all rows - so all roles permissions can cover for authorization
-    // const permissions: string[] = [];
-    // result.forEach((row) => {
-    //     if (row.permissions) {
-    //         permissions.push(...row.permissions);
-    //     }
-    // });
+    const permissions: string[] = [];
+    result.forEach((row) => {
+        if (row.permissions) {
+            permissions.push(...row.permissions);
+        }
+    });
+
+    // console.log("permissions", permissions);
 
     // send user with all permissions
-    // return {
-    //     ...result[0],
-    //     permissions
-    // };
+    return {
+        ...result[0],
+        permissions
+    };
 
+    // console.log("permissions", result[0].permissions);
     // return the user
-    return result[0];
+    // return result[0];
 }

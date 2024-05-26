@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 import { env } from './config/env'
 import guard from 'fastify-guard'
 import { roleRoutes } from './modules/role/roles.routes'
+import { postsRoutes } from './modules/posts/posts.routes'
 
 // create logger with pino
 const logger = pino({
@@ -99,3 +100,5 @@ app.register(userRoutes, { prefix: "api/user" });
 app.register(applicationRoute, { prefix: "api/application" });
 // register roles routes
 app.register(roleRoutes, { prefix: "api/role" });
+// register posts routes
+app.register(postsRoutes, { prefix: "api/post" });

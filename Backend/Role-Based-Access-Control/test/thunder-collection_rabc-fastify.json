@@ -1,0 +1,230 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "rabc-fastify",
+    "collectionId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+    "dateExported": "2024-05-26T11:25:38.640Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "3db06fd5-59f8-4ce0-8ae7-049fb0831330",
+            "name": "Application",
+            "containerId": "",
+            "created": "2024-05-25T21:43:30.707Z",
+            "sortNum": 5000
+        },
+        {
+            "_id": "831fdbd8-a608-4f7c-8bea-9e3e580f1739",
+            "name": "User",
+            "containerId": "",
+            "created": "2024-05-25T19:18:29.370Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "02297d23-a1dc-4608-9081-8aae9fc583d9",
+            "name": "Role",
+            "containerId": "",
+            "created": "2024-05-26T09:42:56.023Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "06805d27-482e-4291-9498-d56fb06dab0a",
+            "name": "Post",
+            "containerId": "",
+            "created": "2024-05-26T11:11:32.988Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "62c66978-adf5-4df0-84d2-a0eb32a3306d",
+            "colId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+            "containerId": "831fdbd8-a608-4f7c-8bea-9e3e580f1739",
+            "name": "Create User",
+            "url": "http://127.0.0.1:3000/api/user/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-05-25T19:17:09.428Z",
+            "modified": "2024-05-26T10:40:56.560Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"viky@abc.com\",\n    \"name\": \"Viky\",\n    \"password\": \"123456\",\n    \"applicationId\" : {{application_ID}}\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "e4d0d1bb-f683-42c8-8281-fd3671d41575",
+            "colId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+            "containerId": "",
+            "name": "home",
+            "url": "http://127.0.0.1:3000",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-05-25T19:17:54.959Z",
+            "modified": "2024-05-25T19:18:03.098Z",
+            "headers": []
+        },
+        {
+            "_id": "578bb78e-b2ec-459b-b238-b7aae181eb8c",
+            "colId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+            "containerId": "06805d27-482e-4291-9498-d56fb06dab0a",
+            "name": "Create Post",
+            "url": "http://127.0.0.1:3000/api/post/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-05-26T11:11:39.724Z",
+            "modified": "2024-05-26T11:19:23.010Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{blogger_token}}"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"title\": \"Post 1\",\n    \"content\": \"This is my first Blog post\",\n    \"userId\": {{user_ID}}\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "30a5deaf-4314-407b-a659-74e48795d885",
+            "colId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+            "containerId": "3db06fd5-59f8-4ce0-8ae7-049fb0831330",
+            "name": "Create Application",
+            "url": "http://127.0.0.1:3000/api/application/",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-05-25T21:43:39.981Z",
+            "modified": "2024-05-26T10:35:15.249Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"Blog-post\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "939ea94f-2daa-4571-a6d6-ade56513e31a",
+            "colId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+            "containerId": "831fdbd8-a608-4f7c-8bea-9e3e580f1739",
+            "name": "Create Super Admin",
+            "url": "http://127.0.0.1:3000/api/user/",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-05-26T10:44:20.914Z",
+            "modified": "2024-05-26T10:44:45.608Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"admin@abc.com\",\n    \"name\": \"Admin\",\n    \"password\": \"123456\",\n    \"applicationId\" : {{application_ID}},\n    \"initialuser\": true\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a03142fc-69be-4a32-b29b-1aeb5155abb2",
+            "colId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+            "containerId": "06805d27-482e-4291-9498-d56fb06dab0a",
+            "name": "Get All Posts",
+            "url": "http://127.0.0.1:3000/api/post/",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-05-26T11:12:32.108Z",
+            "modified": "2024-05-26T11:12:57.000Z",
+            "headers": []
+        },
+        {
+            "_id": "d0e873fa-8a31-4c57-95c8-40d10f43674d",
+            "colId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+            "containerId": "831fdbd8-a608-4f7c-8bea-9e3e580f1739",
+            "name": "Assign Role to User ",
+            "url": "http://127.0.0.1:3000/api/user/role-assign",
+            "method": "POST",
+            "sortNum": 25000,
+            "created": "2024-05-26T10:12:51.964Z",
+            "modified": "2024-05-26T10:14:48.359Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{token}}"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n        \"userId\": {{user_ID}},\n        \"roleId\": {{role_ID}}\n    }",
+                "form": []
+            }
+        },
+        {
+            "_id": "3fc03656-63bc-44cc-9b2d-eea2df2f71cd",
+            "colId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+            "containerId": "3db06fd5-59f8-4ce0-8ae7-049fb0831330",
+            "name": "Get Applications",
+            "url": "http://127.0.0.1:3000/api/application/",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-05-25T21:47:00.580Z",
+            "modified": "2024-05-25T21:47:17.298Z",
+            "headers": []
+        },
+        {
+            "_id": "e5601fb8-8b81-4aff-a811-210a8ac630c7",
+            "colId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+            "containerId": "06805d27-482e-4291-9498-d56fb06dab0a",
+            "name": "Login Blogger",
+            "url": "http://127.0.0.1:3000/api/user/login",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-05-26T11:16:08.757Z",
+            "modified": "2024-05-26T11:16:31.906Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"viky@abc.com\",\n    \"password\": \"123456\",\n    \"applicationId\" : {{application_ID}} \n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a44b296e-242a-4898-86f8-4532d7b07b1d",
+            "colId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+            "containerId": "831fdbd8-a608-4f7c-8bea-9e3e580f1739",
+            "name": "Login",
+            "url": "http://127.0.0.1:3000/api/user/login",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-05-26T07:22:52.687Z",
+            "modified": "2024-05-26T10:36:55.529Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"admin@abc.com\",\n    \"password\": \"123456\",\n    \"applicationId\" : {{application_ID}}\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "3eab7b90-d596-4650-9c96-1d6db239c0b2",
+            "colId": "24935988-4d3e-47fc-ad24-085438fc07c0",
+            "containerId": "02297d23-a1dc-4608-9081-8aae9fc583d9",
+            "name": "Create Role",
+            "url": "http://127.0.0.1:3000/api/role/",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-05-26T09:43:03.105Z",
+            "modified": "2024-05-26T10:38:00.580Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{token}}"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"Blogger\",\n    \"permissions\" : [\"post:write\", \"post:read\", \"post:edit-own\"]\n}",
+                "form": []
+            }
+        }
+    ],
+    "settings": {
+        "envId": "643570fc-5995-4e1d-ac7a-dc4501456c45"
+    },
+    "ref": "7UX4PrrHTDBpd6v_FHQz1COgS0LVsbVId6P6hBhBbrKDgv_B6yvB_joiyhH5UADdkbHp70GMpq46doFX2rYVrA"
+}
