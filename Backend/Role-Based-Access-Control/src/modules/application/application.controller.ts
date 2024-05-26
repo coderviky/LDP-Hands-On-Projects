@@ -4,7 +4,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { CreateApplicationBody } from "./application.schema";
 import { createApplicationInDB, getAllApplicationsFromDB } from "./application.services";
 import { ALL_PERMISSIONS, SYSTEM_ROLES, USER_ROLE_PERMISSIONS } from "../../config/permissions";
-import { createRoleInDB } from "../role/role.services";
+import { createRoleInDB } from "../role/roles.services";
 
 
 // create application route handler function
@@ -24,7 +24,7 @@ export async function createApplicationHandler(
     const superAdminRolePromise = createRoleInDB({
         name: SYSTEM_ROLES.SUPER_ADMIN,
         applicationId: application.id,
-        permissions: ALL_PERMISSIONS
+        permissions: ALL_PERMISSIONS as unknown as Array<string>
     });
 
 

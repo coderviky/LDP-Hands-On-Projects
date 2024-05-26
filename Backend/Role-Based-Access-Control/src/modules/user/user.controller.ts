@@ -1,10 +1,13 @@
 // User Routes Logic Part
 import { FastifyRequest, FastifyReply } from "fastify";
-import { CreateUserBody } from "./user.schema";
-import { assignRoleToUser, createUserInDB, getUsersByApplication } from "./user.services";
+import { CreateUserBody, LoginUserBody } from "./user.schema";
+import { assignRoleToUser, createUserInDB, findUserByEmailAndPassword, getUsersByApplication } from "./user.services";
 import { SYSTEM_ROLES } from "../../config/permissions";
-import { get } from "http";
-import { getRoleByAppAndRoleName } from "../role/role.services";
+import { getRoleByAppAndRoleName } from "../role/roles.services";
+import argon2 from "argon2";
+import jwt from "jsonwebtoken";
+import { env } from "../../config/env";
+
 
 
 // create user route handler function
@@ -53,6 +56,7 @@ export async function createUserHandler(
             userId: user.id
         });
 
+        // send the user data in response
         reply.code(201).send(user);
 
     } catch (error) {
@@ -61,8 +65,54 @@ export async function createUserHandler(
         });
     }
 
+}
 
 
 
+// LOGIN user route handler function
+export async function loginUserHandler(
+    request: FastifyRequest<{
+        Body: LoginUserBody
+    }>,
+    reply: FastifyReply
+) {
+    // get email and password and applicationId from the request
+    const { email, password, applicationId } = request.body;
+
+    const user = await findUserByEmailAndPassword(email, password, applicationId);
+
+    // if user does not exist
+    if (!user) {
+        return reply.code(404).send({
+            message: "User does not exist"
+        });
+    }
+
+    // verify password
+    const isPasswordValid = await argon2.verify(user.password, password);
+
+    // if password is not valid
+    if (!isPasswordValid) {
+        return reply.code(400).send({
+            message: "Invalid password"
+        });
+    }
+
+    // send the user data in response
+    // reply.code(200).send(user);
+
+    // send jwt token in response
+    // this jwt token will be used to authenticate user in further requests
+    // by decoding the token in the request header by middleware/hook for "onRequest" event
+    const token = jwt.sign({
+        id: user.id,
+        email: user.email,
+        applicationId: user.applicationId,
+        scopes: user.permissions
+    }, env.JWT_SECRET as string);
+
+    reply.code(200).send({
+        token
+    });
 
 }

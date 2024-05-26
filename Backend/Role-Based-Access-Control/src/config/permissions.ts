@@ -1,17 +1,38 @@
 // PERMISSIONS data
 
+// PERMISSIONS String Consts
+export const USER_ROLE_WRITE = "user:role:write"
+export const USER_ROLE_READ = "user:role:read"
+
+export const ROLE_WRITE = "role:write"
+
+export const POST_WRITE = "post:write"
+export const POST_READ = "post:read"
+export const POST_DELETE = "post:delete"
+export const POST_EDIT_OWN = "post:edit-own"
+
 
 export const ALL_PERMISSIONS = [
     // user permissions
-    "user:role:write",
-    "user:role:read",
+    // "user:role:write",
+    // "user:role:read",
+    USER_ROLE_WRITE,
+    USER_ROLE_READ,
+
+    // role permissions
+    // "role:write",
+    ROLE_WRITE,
 
     // post permissions
-    "post:write",
-    "post:read",
-    "post:delete",
-    "post:edit-own"
-];
+    // "post:write",
+    // "post:read",
+    // "post:delete",
+    // "post:edit-own"
+    POST_WRITE,
+    POST_READ,
+    POST_DELETE,
+    POST_EDIT_OWN
+] as const;
 
 // convert permissions to object
 export const PERMISSIONS = ALL_PERMISSIONS.reduce(

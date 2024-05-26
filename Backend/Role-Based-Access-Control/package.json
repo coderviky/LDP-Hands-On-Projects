@@ -11,22 +11,25 @@
     "author": "",
     "license": "ISC",
     "description": "",
+    "dependencies": {
+        "argon2": "^0.40.3",
+        "dotenv": "^16.4.5",
+        "drizzle-orm": "^0.30.10",
+        "fastify": "^4.27.0",
+        "fastify-guard": "^2.0.0",
+        "jsonwebtoken": "^9.0.2",
+        "pg": "^8.11.5",
+        "pino": "^9.1.0",
+        "zod": "^3.23.8",
+        "zod-to-json-schema": "^3.23.0"
+    },
     "devDependencies": {
+        "@types/jsonwebtoken": "^9.0.6",
         "@types/node": "^20.12.12",
         "@types/pg": "^8.11.6",
         "drizzle-kit": "^0.21.4",
         "pino-pretty": "^11.1.0",
         "tsx": "^4.11.0",
         "typescript": "^5.4.5"
-    },
-    "dependencies": {
-        "argon2": "^0.40.3",
-        "dotenv": "^16.4.5",
-        "drizzle-orm": "^0.30.10",
-        "fastify": "^4.27.0",
-        "pg": "^8.11.5",
-        "pino": "^9.1.0",
-        "zod": "^3.23.8",
-        "zod-to-json-schema": "^3.23.0"
     }
 }
