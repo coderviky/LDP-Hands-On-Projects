@@ -14,4 +14,19 @@ const createUserSchema = z.object({
 export type CreateUserSchema = z.infer<typeof createUserSchema>;
 
 // jsonschema
-export const createUserJsonSchema = zodToJsonSchema(createUserSchema, "createUserSchema");
+export const createUserJsonSchema = {
+    body: zodToJsonSchema(createUserSchema, "createUserSchema")
+}
+
+
+// login user schemas
+const loginUserSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(6)
+})
+
+export type LoginUserSchema = z.infer<typeof loginUserSchema>;
+
+export const loginUserJsonSchema = {
+    body: zodToJsonSchema(loginUserSchema, "loginUserSchema")
+}

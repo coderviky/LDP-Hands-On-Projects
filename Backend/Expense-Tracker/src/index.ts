@@ -1,22 +1,18 @@
 import Fastify, { FastifyReply, FastifyRequest } from 'fastify'
-import { pino } from 'pino'
+import { logger } from './config/logger'
 import jwt from 'jsonwebtoken'
 import { env } from './config/env'
 import { connectDB } from './db/db'
 
 // routes import
 import { userRoutes } from './modules/user/user.routes'
+import { transactionRoutes } from './modules/transaction/transaction.routes'
 
-// connect to mongo db
+// ----------------------------
+
+// connect to mongo db $$$$$
 connectDB();
 
-// create logger with pino
-const logger = pino({
-    level: 'info',
-    transport: {
-        target: 'pino-pretty',
-    }
-})
 
 // Request extension -------------
 // add user to request object
@@ -53,8 +49,11 @@ app.addHook("onRequest", async function (request: FastifyRequest, reply: Fastify
 
     // if token is present in header then decode it
     const token = authHeader.split(" ")[1];
+    // logger.info("token - ", token);
     // decode token
     const decodedUser = await jwt.verify(token, env.JWT_SECRET as string);
+
+    // logger.info("decodedUser", decodedUser);
 
     // add user to request object
     request.user = decodedUser as UserInRequest;
@@ -81,3 +80,5 @@ app.get('/', (request, reply) => {
 // ############ REGISTER ROUTES ############
 // register user routes
 app.register(userRoutes, { prefix: "api/user" });
+// register transaction routes
+app.register(transactionRoutes, { prefix: "api/transaction" });

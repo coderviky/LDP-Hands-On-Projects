@@ -1,9 +1,11 @@
 // USER routes logic part
 
 import { FastifyReply, FastifyRequest } from "fastify";
-import { CreateUserSchema } from "./user.schema";
+import { CreateUserSchema, LoginUserSchema } from "./user.schema";
 import { User } from "../../db/models";
 import argon2 from "argon2";
+import jwt from "jsonwebtoken";
+import { env } from "../../config/env";
 
 
 // register user route handler - with schema validation
@@ -39,5 +41,48 @@ export async function registerHandler(
             message: "Error creating user : " + (error as any)._message
         });
     }
+}
+
+
+
+// Login user route handler - with schema validation
+export async function loginHandler(
+    request: FastifyRequest<{
+        Body: LoginUserSchema
+    }>,
+    reply: FastifyReply) {
+
+    // get user data from request
+    const data = request.body;
+
+    // find user by email
+    const user = await User.findOne({ email: data.email });
+
+    if (!user) {
+        return reply.code(404).send({
+            message: "User not found"
+        })
+    }
+
+    // verify password
+    const isPasswordValid = await argon2.verify(user.password, data.password);
+
+    if (!isPasswordValid) {
+        return reply.code(401).send({
+            message: "Invalid password"
+        })
+    }
+
+    // generate jwt token
+    const token = await jwt.sign(
+        {
+            id: user._id,
+            email: user.email
+        },
+        env.JWT_SECRET as string
+    )
+
+    // response with token
+    reply.code(200).send(token)
 
 }
