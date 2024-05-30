@@ -1,6 +1,6 @@
 # Role-Based Access Control (RBAC) Project
 
-In this project Role-Based Access Control (RBAC) system implemented using Fastify with Drizzle ORM for PostgreSQL. This project also includes scripts for generating and applying database migrations using Drizzle-Kit.
+In this project Role-Based Access Control (RBAC) system implemented using [Fastify](https://fastify.dev/) with [Drizzle ORM](https://orm.drizzle.team/) for [PostgreSQL](https://www.postgresql.org/) db. This project also includes scripts for generating and applying database migrations using Drizzle-Kit.
 
 ## Features
 

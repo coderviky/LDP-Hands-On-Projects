@@ -28,7 +28,11 @@ export async function registerHandler(
     try {
         await user.save();  // save user in the database
         // reponse with user data
-        reply.code(201).send(user);
+        reply.code(201).send({
+            id: user._id,
+            name: user.name,
+            email: user.email
+        });
     } catch (error) {
         console.log("Error creating user", error);
         // if error code 11000 then user already exist
@@ -83,6 +87,6 @@ export async function loginHandler(
     )
 
     // response with token
-    reply.code(200).send(token)
+    reply.code(200).send({ token })
 
 }

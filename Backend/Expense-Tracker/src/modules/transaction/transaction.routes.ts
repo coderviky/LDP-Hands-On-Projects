@@ -3,13 +3,23 @@
 import { create } from "domain";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { createTransactionJsonSchema } from "./transaction.schema";
-import { createTransactionHandler } from "./transaction.controller";
+import { createTransactionHandler, deleteTransactionByIdHandler, getAllTransactionsHandler, getTransactionByIdHandler, updateTransactionByIdHandler } from "./transaction.controller";
 import { userInRequestPreHandler } from "../../utils/auth";
+import { get } from "http";
 
 
 // transaction reoute function
 
 export async function transactionRoutes(app: FastifyInstance) {
+
+    // get all transactions
+    app.get(
+        '/',
+        {
+            preHandler: userInRequestPreHandler
+        },
+        getAllTransactionsHandler
+    )
 
     // create transaction
     /*
@@ -46,11 +56,42 @@ export async function transactionRoutes(app: FastifyInstance) {
 
 
     // get transaction by id
+    /*  665863033c70075c2582090f  */
+    app.get(
+        '/:id',
+        {
+            preHandler: userInRequestPreHandler
+        },
+        getTransactionByIdHandler
+    );
 
 
     // update transaction by id
+    /*
+    {
+        "date": "2024-05-27",
+        "amount": 200,
+        "type": "expense",
+        "category": "food"
+    }
+    */
+    app.put(
+        '/:id',
+        {
+            schema: createTransactionJsonSchema,
+            preHandler: userInRequestPreHandler
+        },
+        updateTransactionByIdHandler
+    );
 
 
     // delete transaction by id
+    app.delete(
+        '/:id',
+        {
+            preHandler: userInRequestPreHandler,
+        },
+        deleteTransactionByIdHandler
+    );
 
 }
