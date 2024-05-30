@@ -7,6 +7,7 @@ import { connectDB } from './db/db'
 // routes import
 import { userRoutes } from './modules/user/user.routes'
 import { transactionRoutes } from './modules/transaction/transaction.routes'
+import { accountRoutes } from './modules/account/account.routes'
 
 // ----------------------------
 
@@ -82,3 +83,5 @@ app.get('/', (request, reply) => {
 app.register(userRoutes, { prefix: "api/user" });
 // register transaction routes
 app.register(transactionRoutes, { prefix: "api/transaction" });
+// register account routes
+app.register(accountRoutes, { prefix: "api/account" });

@@ -4,6 +4,7 @@ import { create } from "domain";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { createTransactionJsonSchema } from "./transaction.schema";
 import { createTransactionHandler } from "./transaction.controller";
+import { userInRequestPreHandler } from "../../utils/auth";
 
 
 // transaction reoute function
@@ -19,6 +20,13 @@ export async function transactionRoutes(app: FastifyInstance) {
         "category": "salary",
         "description": "salary for july"
     }
+    {
+        "date": "2024-04-01",
+        "amount": 5000,
+        "type": "income",
+        "category": "salary",
+        "description": "salary for apr 24"
+    }
 
     {
         "date": "2024-05-28",
@@ -31,16 +39,7 @@ export async function transactionRoutes(app: FastifyInstance) {
         '/',
         {
             schema: createTransactionJsonSchema,
-            preHandler: async function (request: FastifyRequest, reply: FastifyReply) {
-                console.log("preHandler");
-                // check user is logged in
-                if (!request.user) {
-                    reply.code(401).send({
-                        message: "Unauthorized"
-                    });
-                }
-                // if user is logged in then continue
-            }
+            preHandler: userInRequestPreHandler
         },
         createTransactionHandler
     );

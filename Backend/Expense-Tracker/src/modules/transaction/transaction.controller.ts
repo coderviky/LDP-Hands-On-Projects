@@ -1,15 +1,17 @@
 // Teansaction Routes Logic Part
 
-import { FastifyReply, FastifyRequest } from "fastify";
-import { CreateTransactionSchema } from "./transaction.schema";
+import { FastifyReply, FastifyRequest, RouteGenericInterface } from "fastify";
+import { CreateTransactionBody } from "./transaction.schema";
 import { Transaction } from "../../db/models";
 
 
+interface CreateTransactionRouteInterface extends RouteGenericInterface {
+    Body: CreateTransactionBody;
+}
+
 // Create Transaction Handler function
 export async function createTransactionHandler(
-    request: FastifyRequest<{
-        Body: CreateTransactionSchema
-    }>,
+    request: FastifyRequest<CreateTransactionRouteInterface>,
     reply: FastifyReply
 ) {
     // get user id from request object

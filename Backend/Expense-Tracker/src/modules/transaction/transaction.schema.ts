@@ -13,7 +13,7 @@ const createTransactionSchema = z.object({
 })
 
 // type
-export type CreateTransactionSchema = z.infer<typeof createTransactionSchema>;
+export type CreateTransactionBody = z.infer<typeof createTransactionSchema>;
 
 // jsonschema
 export const createTransactionJsonSchema = {

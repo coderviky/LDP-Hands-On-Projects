@@ -1,0 +1,120 @@
+## aggragation Queries
+
+1. using group on all document -> one document
+   [
+   {
+   $match:
+      {
+        userId: new ObjectId(
+          "6658536ae5e4b5894d99ded9"
+        ),
+        date: {
+          $gte: new ISODate(
+            new Date(2024, 5 - 1, 1).toISOString()
+          ),
+          $lt: new ISODate(
+            new Date(2024, 5, 1).toISOString()
+          ),
+        },
+      },
+  },
+  {
+    $group: {
+      _id: null,
+      totalExpense: {
+        $sum: {
+          $cond: [
+            {
+              $eq: ["$type", "expense"],
+   },
+   "$amount",
+            0,
+          ],
+        },
+      },
+      totalIncome: {
+        $sum: {
+          $cond: [
+            {
+              $eq: ["$type", "income"],
+   },
+   "$amount",
+            0,
+          ],
+        },
+      },
+      expenseTransactions: {
+        $push: {
+          $cond: [
+            {
+              $eq: ["$type", "expense"],
+   },
+   {
+   \_id: "$_id",
+              amount: "$amount",
+   type: "$type",
+              date: "$date",
+   category: "$category",
+              description: "$description",
+   },
+   "$$REMOVE",
+          ],
+        },
+      },
+      incomeTransactions: {
+        $push: {
+          $cond: [
+            {
+              $eq: ["$type", "income"],
+            },
+            {
+              _id: "$_id",
+              amount: "$amount",
+              type: "$type",
+              date: "$date",
+              category: "$category",
+              description: "$description",
+            },
+            "$$REMOVE",
+   ],
+   },
+   },
+   },
+   },
+   ]
+
+2. using group -> 2 documents (expense and income)
+   [
+   {
+   $match:
+   {
+   userId: new ObjectId("6658536ae5e4b5894d99ded9"),
+   date: {
+   $gte: new ISODate(
+   new Date(2024, 5 - 1, 1).toISOString()
+   ),
+   $lt: new ISODate(
+   new Date(2024, 5, 1).toISOString()
+   ),
+   },
+   },
+   },
+   {
+   $group: {
+   _id: "$type",
+   total: {
+   $sum: "$amount"
+   },
+   transactions: {
+   // $push: "$$ROOT" get all fields
+   $push: {
+   _id: "$\_id",
+   amount: "$amount",
+   type: "$type",
+   date: "$date",
+   category: "$category",
+   description: "$description"
+   }
+   }
+   }
+   }]

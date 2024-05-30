@@ -11,10 +11,7 @@ import { createUserJsonSchema, loginUserJsonSchema } from "./user.schema";
 // User Routes FUnction
 export async function userRoutes(app: FastifyInstance) {
 
-    // // get user profile
-    // app.get('/profile',
-    //     userProfileHandler
-    // );
+
 
     // user Register route
     /*
@@ -38,4 +35,16 @@ export async function userRoutes(app: FastifyInstance) {
         },
         loginHandler
     );
+
+
+
+
+
+
+
+
+    // // get user profile
+    // app.get('/profile',
+    //     userProfileHandler
+    // );
 }
