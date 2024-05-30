@@ -1,7 +1,8 @@
 // ALL Acount Related Routes Logic Part
 
 import { FastifyReply, FastifyRequest, RouteGenericInterface } from "fastify";
-import { getAccountDataByYearMonth } from "./account.service";
+import { getAccountDataByYearMonth, getAccountDataByYearMonthType } from "./account.service";
+import { GetAccountDataByYearMonthTypeParamsSchema } from "./account.schema";
 
 
 
@@ -44,13 +45,13 @@ export async function getCurrentMonthAccountHandler(request: FastifyRequest, rep
 }
 
 
-interface CreateAccountDataByYearMonthRouteInterface extends RouteGenericInterface {
+interface GetAccountDataByYearMonthRouteInterface extends RouteGenericInterface {
     Params: { year: string, month: string }
 }
 
 // get account data by month and year handler
 export async function getAccountDataByYearMonthHandler(
-    request: FastifyRequest<CreateAccountDataByYearMonthRouteInterface>,
+    request: FastifyRequest<GetAccountDataByYearMonthRouteInterface>,
     reply: FastifyReply) {
     // get user id from request token
     const userId = request.user.id;
@@ -71,6 +72,65 @@ export async function getAccountDataByYearMonthHandler(
     reply.send({ userId, year, month, balance, isTransactionDetailsData, ...data[0] });
     // reply.send(data);
 
+}
 
 
+// get account data by month and year -> category wise total (for visualisation)
+//
+
+
+interface GetAccountDataByYearMonthTypeRouteInterface extends RouteGenericInterface {
+    Params: GetAccountDataByYearMonthTypeParamsSchema
+}
+
+export async function getAccountDataByYearMonthTypeHandler(
+    request: FastifyRequest<GetAccountDataByYearMonthTypeRouteInterface>,
+    reply: FastifyReply
+) {
+    // get user id from request token
+    const userId = request.user.id;
+
+    // get year and month from request params
+    const year = parseInt(request.params.year);
+    const month = parseInt(request.params.month);
+    const type = request.params.type; // expense or income
+
+    // console.log('type', type);
+
+    // get account data by year and month and user id and category wise
+    const transactions = await getAccountDataByYearMonthType(userId, year, month, type, false);
+
+    reply.code(200).send({
+        userId,
+        year,
+        month,
+        type,
+        transactions
+    });
+}
+
+export async function getAccountDataByYearMonthTypeCategoryWiseHandler(
+    request: FastifyRequest<GetAccountDataByYearMonthTypeRouteInterface>,
+    reply: FastifyReply
+) {
+    // get user id from request token
+    const userId = request.user.id;
+
+    // get year and month from request params
+    const year = parseInt(request.params.year);
+    const month = parseInt(request.params.month);
+    const type = request.params.type; // expense or income
+
+    // console.log('type', type);
+
+    // get account data by year and month and user id and category wise
+    const categoryWiseData = await getAccountDataByYearMonthType(userId, year, month, type, true);
+
+    reply.code(200).send({
+        userId,
+        year,
+        month,
+        type,
+        categoryWiseData
+    });
 }

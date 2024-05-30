@@ -1,8 +1,8 @@
 // All Accounts Routes
-import { FastifyInstance } from "fastify";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { userInRequestPreHandler } from "../../utils/auth";
-import { getAccountDataByYearMonthHandler, getCurrentMonthAccountHandler } from "./account.controller";
-import { getAccountDataByYearMonth } from "./account.service";
+import { getAccountDataByYearMonthTypeCategoryWiseHandler, getAccountDataByYearMonthHandler, getCurrentMonthAccountHandler, getAccountDataByYearMonthTypeHandler } from "./account.controller";
+import { getAccountDataByYearMonthTypeParamsPrehandler } from "./account.schema";
 
 
 
@@ -26,9 +26,30 @@ export async function accountRoutes(app: FastifyInstance) {
         getAccountDataByYearMonthHandler
     )
 
+    // account data by year and month -> category wise total (for visualisation)
+    app.get(
+        '/:year/:month/:type',
+        {
+            preHandler: [
+                userInRequestPreHandler, // check if user is logged in using token
+                getAccountDataByYearMonthTypeParamsPrehandler // validate request params
+            ]
+        },
+        getAccountDataByYearMonthTypeHandler
+    )
 
 
+    // account data by year and month -> category wise total (for visualisation)
+    app.get(
+        '/:year/:month/:type/category-wise/',
+        {
+            preHandler: [
+                userInRequestPreHandler, // check if user is logged in using token
+                getAccountDataByYearMonthTypeParamsPrehandler // validate request params
+            ]
+        },
+        getAccountDataByYearMonthTypeCategoryWiseHandler
+    )
 
-    // account data for {year}{month} for user id from request token
 
 }

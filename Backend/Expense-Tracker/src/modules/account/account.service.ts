@@ -123,3 +123,63 @@ export async function getAccountDataByYearMonth(userId: string, year: number, mo
     return data;
 
 }
+
+
+
+
+// Get account data by year and month -> category wise total (for visualisation)
+export async function getAccountDataByYearMonthType(userId: string, year: number, month: number, type: 'expense' | 'income', isCategoryWise: boolean) {
+
+    let aggregateStages: any[] = [
+        {
+            $match: {
+                userId: new Types.ObjectId(userId),
+                date: {
+                    $gte: new Date(year, month - 1, 1), // month is 0 based
+                    $lt: new Date(year, month, 1)
+                },
+                type: type  // filter by type
+            }
+        },
+        // sort by date : recent first -> -1 descending order
+        {
+            $sort: { date: -1 }
+        }
+    ]
+
+
+    // check if category wise grouping is required
+    if (isCategoryWise) {
+        // categorywise grouping 
+        aggregateStages.push(
+            {
+                $group: {
+                    _id: "$category", // consider all documents
+                    total: {
+                        $sum: "$amount"
+                    },
+                }
+            },
+        )
+    } else { // only type wise filter so
+        // project transactions data
+        aggregateStages.push(
+            {
+                $project: {
+                    _id: 1,
+                    amount: 1,
+                    type: 1,
+                    date: 1,
+                    category: 1,
+                    description: 1
+                }
+            }
+        )
+    }
+
+    // get account data by year and month and type and user id -> 1 document
+    const data = await Transaction.aggregate(aggregateStages);
+
+    return data;
+
+}
