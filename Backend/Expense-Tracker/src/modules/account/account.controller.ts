@@ -13,7 +13,7 @@ export async function getCurrentMonthAccountHandler(request: FastifyRequest, rep
     const userId = request.user.id;
 
     // get current month and year
-    const currentMonth = new Date().getMonth() + 1;
+    const currentMonth = new Date().getMonth(); // month is 0 based
     const currentYear = new Date().getFullYear();
 
 
@@ -58,7 +58,7 @@ export async function getAccountDataByYearMonthHandler(
 
     // get year and month from request params
     const year = parseInt(request.params.year);
-    const month = parseInt(request.params.month);
+    const month = parseInt(request.params.month);  // get month in 0 based
 
 
     // get account data by year and month and user id
@@ -69,7 +69,7 @@ export async function getAccountDataByYearMonthHandler(
     // const balance = data[0]?.income.total - data[0]?.expense.total;
     const isTransactionDetailsData: boolean = data.length > 0;
 
-    reply.send({ userId, year, month, balance, isTransactionDetailsData, ...data[0] });
+    reply.send({ userId, year, month, balance, isData: isTransactionDetailsData, ...data[0] });
     // reply.send(data);
 
 }

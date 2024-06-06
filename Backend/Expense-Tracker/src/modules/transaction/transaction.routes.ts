@@ -14,7 +14,7 @@ export async function transactionRoutes(app: FastifyInstance) {
 
     // get all transactions
     app.get(
-        '/',
+        '/all',
         {
             preHandler: userInRequestPreHandler
         },

@@ -28,11 +28,12 @@ declare module 'fastify' {
 
 export function createFastifyApp() {
 
+    console.log("JWT_SECRET : ", env.JWT_SECRET)
 
     // $$$$$$$$$$$$$$$$ ---------------------
     // create fastify server with logger enabled with pino
     const app = Fastify({
-        logger: true
+        logger
     })
 
     app.decorateRequest('user', null);  // add user to request object

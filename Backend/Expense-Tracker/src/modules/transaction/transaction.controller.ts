@@ -49,7 +49,8 @@ export async function createTransactionHandler(
         // response
         reply.code(201).send({
             message: "Transaction created successfully",
-            data: transaction
+            id: transaction._id,
+            ...transaction.toJSON()
         })
     } catch (error) {
         // error response

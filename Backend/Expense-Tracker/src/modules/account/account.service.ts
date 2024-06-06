@@ -13,8 +13,8 @@ export async function getAccountDataByYearMonth(userId: string, year: number, mo
             $match: {
                 userId: new Types.ObjectId(userId),
                 date: {
-                    $gte: new Date(year, month - 1, 1), // month is 0 based
-                    $lt: new Date(year, month, 1)
+                    $gte: new Date(year, month, 1), // month is 0 based
+                    $lt: new Date(year, month + 1, 1)
                 }
             }
         },
@@ -135,8 +135,8 @@ export async function getAccountDataByYearMonthType(userId: string, year: number
             $match: {
                 userId: new Types.ObjectId(userId),
                 date: {
-                    $gte: new Date(year, month - 1, 1), // month is 0 based
-                    $lt: new Date(year, month, 1)
+                    $gte: new Date(year, month, 1), // month is 0 based
+                    $lt: new Date(year, month + 1, 1)
                 },
                 type: type  // filter by type
             }

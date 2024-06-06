@@ -3,6 +3,9 @@ import * as mongoose from 'mongoose';
 import config from './db.test.config';
 
 export = async function globalSetup() {
+    // add jwt token secret in env
+    process.env.JWT_SECRET = 'testsecret';
+
     if (config.Memory) { // Config to decide if an mongodb-memory-server instance should be used
         // it's needed in global space, because we don't want to create a new instance every test-suite
         const instance = await MongoMemoryServer.create();
