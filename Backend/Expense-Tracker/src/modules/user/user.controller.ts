@@ -29,7 +29,7 @@ export async function registerHandler(
         await user.save();  // save user in the database
         // reponse with user data
         reply.code(201).send({
-            id: user._id,
+            // id: user._id,
             name: user.name,
             email: user.email
         });
