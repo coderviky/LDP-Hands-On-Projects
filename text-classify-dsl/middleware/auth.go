@@ -9,7 +9,6 @@ import (
 )
 
 // auth middleware to check jwt token and inject user info in context
-
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// get token from request header
