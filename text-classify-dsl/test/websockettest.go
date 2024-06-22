@@ -3,12 +3,14 @@ package main
 // websocket test - Client connecting to server
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/gorilla/websocket"
@@ -51,15 +53,6 @@ func getToken(url, email, password string) (string, error) {
 		return "", fmt.Errorf("failed to login: %s", body)
 	}
 
-	// // Parse the response body
-	// var loginResponse LoginResponse
-	// err = json.Unmarshal(body, &loginResponse)
-	// if err != nil {
-	// 	return "", err
-	// }
-
-	// return loginResponse.Token, nil
-
 	token, err := strconv.Unquote(string(body))
 	if err != nil {
 		return "", err
@@ -84,7 +77,7 @@ func main() {
 	// WebSocket server URL
 	serverURL := "ws://127.0.0.1:8080/api/text/classify"
 	header := http.Header{}
-	log.Println("Token: ", token)
+	// log.Println("Token: ", token)
 	header.Set("Authorization", "Bearer "+token)
 
 	// Dial the WebSocket server
@@ -94,28 +87,39 @@ func main() {
 	}
 	defer conn.Close()
 
-	messageType := websocket.TextMessage
-
 	for {
-		// Send a response message
-		response := "From Client : Hello"
-		err = conn.WriteMessage(messageType, []byte(response))
+		// Send a text message
+		// take input from user
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Print("Enter the text to classify: ")
+		Text, err := reader.ReadString('\n')
+		Text = Text[:len(Text)-1]
 		if err != nil {
-			log.Println("Error sending response:", err)
+			log.Println("Error reading text:", err)
 			return
 		}
 
-		messageType_new, p, err := conn.ReadMessage()
+		err = conn.WriteMessage(websocket.TextMessage, []byte(Text))
 		if err != nil {
-			log.Println("Error reading message:", err)
+			log.Println("Error sending Text:", err)
 			return
 		}
-		if messageType_new == websocket.TextMessage {
-			log.Printf("Received TextMessage: %s\n", string(p))
-		}
-		if messageType_new == websocket.BinaryMessage {
-			log.Printf("Received BinaryMessage: %v\n", p)
-		}
 
+		// read message from the connection unitl message type is websocket.BinaryMessage and response is 0
+		for {
+			messageType, p, err := conn.ReadMessage()
+			if err != nil {
+				log.Println("Error reading message:", err)
+				return
+			}
+			if messageType == websocket.BinaryMessage {
+				if p[0] == 0 {
+					break
+				}
+			}
+			if messageType == websocket.TextMessage {
+				fmt.Printf("  %s\n", string(p))
+			}
+		}
 	}
 }

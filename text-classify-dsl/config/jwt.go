@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"fmt"
 	"os"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -11,7 +12,7 @@ import (
 
 // type for jwt claims
 type JwtClaims struct {
-	UserId uint
+	UserId string
 	Email  string
 	jwt.RegisteredClaims
 }
@@ -19,7 +20,7 @@ type JwtClaims struct {
 func GenerateJWTtoken(id uint, email string) (string, error) {
 	// create jwt claims
 	claims := JwtClaims{
-		UserId:           id,
+		UserId:           fmt.Sprintf("%d", id),
 		Email:            email,
 		RegisteredClaims: jwt.RegisteredClaims{}, // expired at date can be added to check validation - skip for now
 	}

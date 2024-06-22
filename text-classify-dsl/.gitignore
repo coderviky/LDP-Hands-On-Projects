@@ -1,6 +1,7 @@
 
 # Binaries for programs and plugins
 main
+tmp/
 *.exe
 *.exe~
 *.dll

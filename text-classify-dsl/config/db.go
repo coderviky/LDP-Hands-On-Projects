@@ -36,6 +36,6 @@ func PostgresDBConnect() {
 // migration function
 func DBMigrate() {
 	// gorm auto migrate
-	DB.AutoMigrate(&models.User{})
+	DB.AutoMigrate(&models.User{}, &models.Rule{})
 	log.Println("Database migration completed")
 }
