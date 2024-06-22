@@ -13,6 +13,8 @@ Following features are implemented in this project :
 -   Fast and efficient API built with Fastify
 -   Database management using MongoDB and Mongoose
 -   Written in TypeScript for type-checking
+-   Tests using Jest and Supertest
+-   Github Actions for Testing
 
 ## Prerequisites
 
@@ -56,6 +58,14 @@ Following techstack required to run this project:
     ```sh
     npm run dev
     ```
+
+## Testing
+
+To run the tests, run the following following command:
+
+    npm run test
+
+This will run the tests located in the `test/` directory.
 
 ## Project Structure
 
