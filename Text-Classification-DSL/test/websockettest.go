@@ -1,4 +1,4 @@
-package main
+package test
 
 // websocket test - Client connecting to server
 
