@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -21,6 +22,20 @@ func RegisterUserHandler(c *gin.Context) {
 		return
 	}
 
+	// check user exists with email
+	record := config.DB.Where("email = ?", user.Email).First(&user)
+
+	if record.Error == nil {
+		// return conflict error response - user already exists
+		c.JSON(http.StatusConflict, gin.H{
+			"error": "User already exists",
+		})
+		return
+	}
+
+	// user not exists -> create user
+	log.Println("User not exists -> create user" + user.Email)
+
 	// create hashed password
 	if err := user.HashedPassword(user.Password); err != nil {
 		// return error response
@@ -31,7 +46,7 @@ func RegisterUserHandler(c *gin.Context) {
 	}
 
 	// save user to db
-	record := config.DB.Create(&user)
+	record = config.DB.Create(&user)
 	if record.Error != nil {
 		// return error response
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -74,7 +89,7 @@ func LoginUserHandler(c *gin.Context) {
 
 	if record.Error != nil {
 		// return error response
-		c.JSON(http.StatusInternalServerError, gin.H{
+		c.JSON(404, gin.H{
 			"error": record.Error.Error(),
 		})
 		return

@@ -15,6 +15,7 @@ import (
 
 // struct for classification engine - ast node and rule text
 type RuleInClassificationEngine struct {
+	RuleName string
 	RuleText string
 	ASTNode  dsl.ASTNode
 }
@@ -89,7 +90,7 @@ func ClassifyTextHandler(c *gin.Context) {
 
 		if messageType == websocket.TextMessage {
 			// process text message
-			log.Printf("Received TextMessage: %s\n", string(p))
+			// log.Printf("Received TextMessage: %s\n", string(p))
 			// proccess recieved text -------------
 			// apply rules on text and send response to client with rule text and result
 			for _, rule := range rule_classification_engine {
@@ -100,7 +101,7 @@ func ClassifyTextHandler(c *gin.Context) {
 					return
 				}
 				// send response to client with rule text and result
-				responseMessage := "Rule: " + rule.RuleText + " : " + strconv.FormatBool(result.Bool)
+				responseMessage := rule.RuleName + " : " + strconv.FormatBool(result.Bool)
 				// fmt.Println(responseMessage)
 				err = connection.WriteMessage(websocket.TextMessage, []byte(responseMessage))
 
@@ -147,6 +148,7 @@ func createRuleClassificationEngine(rules []models.Rule) ([]RuleInClassification
 		}
 		// add rule to rule classification engine
 		rule_classification_engine = append(rule_classification_engine, RuleInClassificationEngine{
+			RuleName: rule.Name,
 			RuleText: rule.RuleText,
 			ASTNode:  newAST,
 		})
