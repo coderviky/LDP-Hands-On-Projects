@@ -92,6 +92,33 @@ Before starting, ensure you have the following installed:
     go run .
     ```
 
+## Testing
+
+To run tests, firstly create a test env file as `.env.test` (same as `.env` file) with testing db credentials in `test/` directory then run the following command:
+
+```sh
+go test ./test
+```
+
+## User Defined Classification Rules - DSL
+
+The API supports user-defined classification rules using a Domain Specific Language (DSL). The DSL is defined as follows:
+
+-   **Condition**: A condition is defined as a comparison between a expressions. A condition is a simple comparison. Example: `count('a') >= 10`.
+
+-   **Expression**: An expression is combination of functions `COUNT('string')`, `max(expression,expression)`, `min(expression,expression)` and binary operators [`+,-,*,/`] and integers.
+    Example: `count('aa') + max(count('b), 5) >= min(count('c'), 4)`.
+
+-   **Grammar**: Grammer for the DSL is defined as follows:
+
+    ```
+    rule -> expression (">=" | "<=" | "==" | "!=") expression
+    expression -> expression ("+" | "-") term | term
+    term -> term ("*" | "/") factor | factor
+    factor -> NUMBER | function
+    function -> "count('STRING')" | "max(expression, expression)" | "min(expression, expression)"
+    ```
+
 ## Project Structure
 
 Project structure is as follows:
